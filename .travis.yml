@@ -22,7 +22,7 @@ script:
   - ng build --prod
 
 after_success:
-  - sshpass -p $scpPass scp -r -o StrictHostKeyChecking=no ./dist/* root@pacecouriers.com:/usr/share/nginx/quantumex.ca/
+  - sshpass -p $scpPass scp -r -o StrictHostKeyChecking=no ./dist/honeyComb/* root@pacecouriers.com:/usr/share/nginx/quantumex.ca/
 
 notifications:
   email:
