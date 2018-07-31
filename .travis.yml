@@ -1,22 +1,30 @@
-os:
-- linux
-sudo: true
+#.travis.yml
+language: node_js
+
+node_js:
+  - "6.9"
+
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - sshpass
-    - g++-4.8
-    - oracle-java8-installer
-    - lib32stdc++6
-    - lib32z1
 
-before_install:
-- ls -la
+branches:
+  only:
+    - master
+
 before_script:
-- git pull
+  - npm install -g @angular/cli
 
 script:
-- sshpass -p $scpPass scp -r -o StrictHostKeyChecking=no ./* root@pacecouriers.com:/usr/share/nginx/quantumex.ca/
-- ls -la
+  - ng build --prod
+
+after_success:
+  - sshpass -p $scpPass scp -r -o StrictHostKeyChecking=no ./dist/* root@pacecouriers.com:/usr/share/nginx/quantumex.ca/
+
+notifications:
+  email:
+    on_failure: tanzeelrana901223@gmail.com
+    on_success: tanzeelrana901223@gmail.com
